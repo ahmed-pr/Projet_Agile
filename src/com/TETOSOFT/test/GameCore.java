@@ -92,6 +92,7 @@ public abstract class GameCore {
         window.setForeground(Color.WHITE);
 
         isRunning = true;
+        
     }
 
 
