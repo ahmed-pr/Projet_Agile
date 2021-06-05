@@ -48,7 +48,7 @@ public class MenuStart {
                g.setFont(font2);
    
 
-              g.setColor(Color.BLUE);
+              g.setColor(Color.GREEN);
               gd=(Graphics2D)g;
               gd.draw(playButton);
 
@@ -86,7 +86,7 @@ public class MenuStart {
            
                 g.drawString("You killed "+GameEngine.killed, width/2-45, 190);
                 g.setFont(font2);
-              g.setColor(Color.BLUE);
+              g.setColor(Color.GREEN);
               gd=(Graphics2D)g;
               gd.draw(playButton);
 
