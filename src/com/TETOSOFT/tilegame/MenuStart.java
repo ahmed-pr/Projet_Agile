@@ -74,8 +74,8 @@ public class MenuStart {
               gd.draw(rectangleBackround);
               g.fill3DRect(width/2-200,50,400,400, false);
               
-              g.setColor(Color.WHITE);
-              g.drawString("Super Mario", width/2-140, 100);
+               g.setColor(Color.WHITE);
+               g.drawString("Super Mario", width/2-140, 100);
                g.setColor(Color.RED);
                Font font2=new Font("arial",Font.BOLD,30);
                g.setFont(font2);

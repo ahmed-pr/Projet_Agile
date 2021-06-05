@@ -5,6 +5,7 @@
  */
 package com.TETOSOFT.tilegame;
 
+import com.TETOSOFT.tilegame.GameEngine.STATE;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ double height = screenSize.getHeight();
     public void mousePressed(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet.");
         int mx=e.getX(),my=e.getY();
+        if(GameEngine.state==STATE.MENU){
         if(mx>=width/2-70 && mx<=width/2-70+150 )
         {
             if(my>=150 && my<=200)
@@ -42,6 +44,25 @@ double height = screenSize.getHeight();
                 System.exit(0);}
                  
         }
+        }
+        
+        else   if(GameEngine.state==STATE.GAMEOVER){
+        if(mx>=width/2-70 && mx<=width/2-70+150 )
+        {
+            if(my>=200 && my<=250)
+            {GameEngine.state=GameEngine.STATE.GAME;
+           }
+            
+        }
+        if(mx>=width/2-70 && mx<=width/2-70+150)
+        {
+            if(my>=300 && my<=350){
+                System.exit(0);}
+                 
+        }
+        }
+        
+        
 
 
 //To change body of generated methods, choose Tools | Templates.
