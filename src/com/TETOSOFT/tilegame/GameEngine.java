@@ -40,6 +40,8 @@ public class GameEngine extends GameCore
     private GameAction pause;
     public  static  int killed = 0;
 
+    private GameAction pause;
+    private int killed = 0;
     private MenuStart menu;
 //    public   int  WIDTH=screen.getWidth();
     public  static enum  STATE{
@@ -96,6 +98,9 @@ public class GameEngine extends GameCore
         
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
         
+        pause = new GameAction("pause", GameAction.DETECT_INITAL_PRESS_ONLY);
+        inputManager.mapToKey(pause, KeyEvent.VK_P);
+        
     }
     
     
@@ -120,9 +125,27 @@ public class GameEngine extends GameCore
             if (jump.isPressed()) {
                 player.jump(false);
             }
+            if (pause.isPressed())
+            	drawPause();
             player.setVelocityX(velocityX);
         }
         
+    }
+    
+    
+    public void drawPause() {
+    	
+    	Graphics2D g = screen.getGraphics();
+    	g.setColor(Color.WHITE);
+    	g.drawString("Pause", screen.getWidth()/2, screen.getHeight()/2);
+    	g.drawString("Press P to continue...", screen.getWidth()/2 -50, screen.getHeight()/2 +50);
+    	screen.update();
+    	
+    	while (!pause.isPressed())
+    		;
+    	jump.reset();
+    	
+    	setPauseDone(true);
     }
     
     
@@ -131,13 +154,15 @@ public class GameEngine extends GameCore
         {
         drawer.draw(g, map, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
-        g.drawString("Press ESC for EXIT.",10.0f,20.0f);
+        g.drawString("Press P for PAUSE / ESC for EXIT.",10.0f,20.0f);
         g.setColor(Color.GREEN);
-        g.drawString("Coins: "+collectedStars,300.0f,20.0f);
+        g.drawString("Coins: "+collectedStars,350.0f,20.0f);
         g.setColor(Color.YELLOW);
-        g.drawString("Lives: "+(numLives),500.0f,20.0f );
+        g.drawString("Lives: "+(numLives),480.0f,20.0f );
         g.setColor(Color.WHITE);
         g.drawString("Home: "+mapLoader.currentMap,700.0f,20.0f);
+        g.setColor(Color.RED);
+        g.drawString("Killed: "+String.valueOf(killed),580.0f,20.0f);
         }
         else if(state==STATE.MENU  || state==STATE.GAMEOVER)
         {
@@ -376,6 +401,7 @@ public class GameEngine extends GameCore
                 badguy.setState(Creature.STATE_DYING);
                 player.setY(badguy.getY() - player.getHeight());
                 player.jump(true);
+                killed = killed + 1;
             } else {
                 // player dies!
                 player.setState(Creature.STATE_DYING);
