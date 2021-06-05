@@ -8,6 +8,7 @@ import com.TETOSOFT.graphics.*;
 import com.TETOSOFT.input.*;
 import com.TETOSOFT.test.GameCore;
 import com.TETOSOFT.tilegame.sprites.*;
+import java.awt.event.KeyListener;
 
 /**
  * GameManager manages all parts of the game.
@@ -18,6 +19,7 @@ public class GameEngine extends GameCore
     public static void main(String[] args) 
     {
         new GameEngine().run();
+        
     }
     
     public static final float GRAVITY = 0.002f;
@@ -34,7 +36,14 @@ public class GameEngine extends GameCore
     private GameAction exit;
     private int collectedStars=0;
     private int numLives=6;
-   
+    private MenuStart menu;
+//    public   int  WIDTH=screen.getWidth();
+    public  static enum  STATE{
+     MENU,
+     GAME
+        };
+    public  static  STATE state=STATE.MENU;
+    
     public void init()
     {
         super.init();
@@ -64,18 +73,24 @@ public class GameEngine extends GameCore
     
     
     private void initInput() {
+      // this. addKeyListener(new InputManager(this)); 
+       
+        menu=new MenuStart();
         moveLeft = new GameAction("moveLeft");
         moveRight = new GameAction("moveRight");
         jump = new GameAction("jump", GameAction.DETECT_INITAL_PRESS_ONLY);
         exit = new GameAction("exit",GameAction.DETECT_INITAL_PRESS_ONLY);
         
         inputManager = new InputManager(screen.getFullScreenWindow());
-        inputManager.setCursor(InputManager.INVISIBLE_CURSOR);
+        //inputManager.setCursor(InputManager.INVISIBLE_CURSOR);
+        
         
         inputManager.mapToKey(moveLeft, KeyEvent.VK_LEFT);
         inputManager.mapToKey(moveRight, KeyEvent.VK_RIGHT);
         inputManager.mapToKey(jump, KeyEvent.VK_SPACE);
+        
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
+        
     }
     
     
@@ -107,7 +122,8 @@ public class GameEngine extends GameCore
     
     
     public void draw(Graphics2D g) {
-        
+      if(state==STATE.GAME)
+        {
         drawer.draw(g, map, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
         g.drawString("Press ESC for EXIT.",10.0f,20.0f);
@@ -117,6 +133,11 @@ public class GameEngine extends GameCore
         g.drawString("Lives: "+(numLives),500.0f,20.0f );
         g.setColor(Color.WHITE);
         g.drawString("Home: "+mapLoader.currentMap,700.0f,20.0f);
+        }
+        else if(state==STATE.MENU)
+        {
+            menu.render(g);
+        }
         
     }
     
@@ -229,7 +250,11 @@ public class GameEngine extends GameCore
         
         // player is dead! start map over
         if (player.getState() == Creature.STATE_DEAD) {
+   drawer.setBackground(mapLoader.loadImage("background.jpg"));            
+state=STATE.MENU;
+            
             map = mapLoader.reloadMap();
+            
             return;
         }
         
@@ -355,6 +380,8 @@ public class GameEngine extends GameCore
                         ex.printStackTrace();
                     }
                     stop();
+                    state=STATE.MENU;
+                    System.out.println("com.TETOSOFT.tilegame.GameEngine.checkPlayerCollision()");
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.TETOSOFT.input;
 
+import com.TETOSOFT.tilegame.MouseInput;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -50,7 +51,7 @@ public class InputManager implements KeyListener, MouseListener,
         centerLocation = new Point();
 
         comp.addKeyListener(this);
-        comp.addMouseListener(this);
+        comp.addMouseListener(new MouseInput());
         comp.addMouseMotionListener(this);
         comp.addMouseWheelListener(this);
 
