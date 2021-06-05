@@ -274,6 +274,10 @@ public class MapLoader
             // right-facing "dead" images
             images[3][i] = getFlippedImage(images[1][i]);
         }
+        images[0][0] = loadImage("marioArretGauche.png");
+        images[1][0] = loadImage("marioArretDroite.png");
+        images[2][0] = loadImage("marioMarcheDroite.png");
+        images[3][0] = loadImage("marioMarcheGauche.png");
 
         // create creature animations
         Animation[] playerAnim = new Animation[4];
