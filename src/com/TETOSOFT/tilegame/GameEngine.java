@@ -40,7 +40,8 @@ public class GameEngine extends GameCore
 //    public   int  WIDTH=screen.getWidth();
     public  static enum  STATE{
      MENU,
-     GAME
+     GAME,
+     GAMEOVER
         };
     public  static  STATE state=STATE.MENU;
     
@@ -122,7 +123,7 @@ public class GameEngine extends GameCore
     
     
     public void draw(Graphics2D g) {
-      if(state==STATE.GAME)
+      if(state==STATE.GAME   )
         {
         drawer.draw(g, map, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
@@ -134,7 +135,7 @@ public class GameEngine extends GameCore
         g.setColor(Color.WHITE);
         g.drawString("Home: "+mapLoader.currentMap,700.0f,20.0f);
         }
-        else if(state==STATE.MENU)
+        else if(state==STATE.MENU  || state==STATE.GAMEOVER)
         {
             menu.render(g);
         }
@@ -251,7 +252,7 @@ public class GameEngine extends GameCore
         // player is dead! start map over
         if (player.getState() == Creature.STATE_DEAD) {
         initInput();
-        state=STATE.MENU;
+        state=STATE.GAMEOVER;
       
                    
             
@@ -383,7 +384,7 @@ public class GameEngine extends GameCore
                     }
                     stop();
                     state=STATE.MENU;
-                    System.out.println("com.TETOSOFT.tilegame.GameEngine.checkPlayerCollision()");
+                  
                 }
             }
         }
