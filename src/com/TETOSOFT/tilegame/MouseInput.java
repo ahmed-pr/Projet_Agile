@@ -51,29 +51,12 @@ double height = screenSize.getHeight();
     public void mouseReleased(MouseEvent e) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
        
-        int mx=e.getX(),my=e.getY();
-        if(mx>=width/2 && mx<=width/2+150 )
-        {
-            if(my>=150 && my<=200)
-            {
-                int play=e.getButton();
-           }
-            
-        }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         int mx=e.getX(),my=e.getY();
-        if(mx>=width/2 && mx<=width/2+150 )
-        {
-            if(my>=150 && my<=200)
-            {
-                int play=e.getButton();
-           }
-            
-        }
+      
     }
 
     @Override
