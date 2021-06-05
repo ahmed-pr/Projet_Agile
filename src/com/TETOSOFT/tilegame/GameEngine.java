@@ -1,3 +1,4 @@
+
 package com.TETOSOFT.tilegame;
 
 import java.awt.*;
@@ -6,9 +7,9 @@ import java.util.Iterator;
 
 import com.TETOSOFT.graphics.*;
 import com.TETOSOFT.input.*;
+import com.TETOSOFT.music.AePlayWave;
 import com.TETOSOFT.test.GameCore;
 import com.TETOSOFT.tilegame.sprites.*;
-import java.awt.event.KeyListener;
 
 /**
  * GameManager manages all parts of the game.
@@ -18,8 +19,9 @@ public class GameEngine extends GameCore
     
     public static void main(String[] args) 
     {
+    	Thread playWave=new AePlayWave("C:\\Users\\Admin\\Downloads\\Super.wav");
+        playWave.start();
         new GameEngine().run();
-        
     }
     
     public static final float GRAVITY = 0.002f;
@@ -36,21 +38,7 @@ public class GameEngine extends GameCore
     private GameAction exit;
     private int collectedStars=0;
     private int numLives=6;
-
-    private GameAction pause;
-    public  static  int killed = 0;
-
-
-   // private int killed = 0;
-    private MenuStart menu;
-//    public   int  WIDTH=screen.getWidth();
-    public  static enum  STATE{
-     MENU,
-     GAME,
-     GAMEOVER
-        };
-    public  static  STATE state=STATE.MENU;
-    
+   
     public void init()
     {
         super.init();
@@ -80,27 +68,18 @@ public class GameEngine extends GameCore
     
     
     private void initInput() {
-      // this. addKeyListener(new InputManager(this)); 
-       
-        menu=new MenuStart();
         moveLeft = new GameAction("moveLeft");
         moveRight = new GameAction("moveRight");
         jump = new GameAction("jump", GameAction.DETECT_INITAL_PRESS_ONLY);
         exit = new GameAction("exit",GameAction.DETECT_INITAL_PRESS_ONLY);
         
         inputManager = new InputManager(screen.getFullScreenWindow());
-        //inputManager.setCursor(InputManager.INVISIBLE_CURSOR);
-        
+        inputManager.setCursor(InputManager.INVISIBLE_CURSOR);
         
         inputManager.mapToKey(moveLeft, KeyEvent.VK_LEFT);
         inputManager.mapToKey(moveRight, KeyEvent.VK_RIGHT);
         inputManager.mapToKey(jump, KeyEvent.VK_SPACE);
-        
         inputManager.mapToKey(exit, KeyEvent.VK_ESCAPE);
-        
-        pause = new GameAction("pause", GameAction.DETECT_INITAL_PRESS_ONLY);
-        inputManager.mapToKey(pause, KeyEvent.VK_P);
-        
     }
     
     
@@ -125,49 +104,23 @@ public class GameEngine extends GameCore
             if (jump.isPressed()) {
                 player.jump(false);
             }
-            if (pause.isPressed())
-            	drawPause();
             player.setVelocityX(velocityX);
         }
         
     }
     
     
-    public void drawPause() {
-    	
-    	Graphics2D g = screen.getGraphics();
-    	g.setColor(Color.WHITE);
-    	g.drawString("Pause", screen.getWidth()/2, screen.getHeight()/2);
-    	g.drawString("Press P to continue...", screen.getWidth()/2 -50, screen.getHeight()/2 +50);
-    	screen.update();
-    	
-    	while (!pause.isPressed())
-    		;
-    	jump.reset();
-    	
-    	setPauseDone(true);
-    }
-    
-    
     public void draw(Graphics2D g) {
-      if(state==STATE.GAME   )
-        {
+        
         drawer.draw(g, map, screen.getWidth(), screen.getHeight());
         g.setColor(Color.WHITE);
-        g.drawString("Press P for PAUSE / ESC for EXIT.",10.0f,20.0f);
+        g.drawString("Press ESC for EXIT.",10.0f,20.0f);
         g.setColor(Color.GREEN);
-        g.drawString("Coins: "+collectedStars,350.0f,20.0f);
+        g.drawString("Coins: "+collectedStars,300.0f,20.0f);
         g.setColor(Color.YELLOW);
-        g.drawString("Lives: "+(numLives),480.0f,20.0f );
+        g.drawString("Lives: "+(numLives),500.0f,20.0f );
         g.setColor(Color.WHITE);
         g.drawString("Home: "+mapLoader.currentMap,700.0f,20.0f);
-        g.setColor(Color.RED);
-        g.drawString("Killed: "+String.valueOf(killed),580.0f,20.0f);
-        }
-        else if(state==STATE.MENU  || state==STATE.GAMEOVER)
-        {
-            menu.render(g);
-        }
         
     }
     
@@ -280,13 +233,7 @@ public class GameEngine extends GameCore
         
         // player is dead! start map over
         if (player.getState() == Creature.STATE_DEAD) {
-        initInput();
-        state=STATE.GAMEOVER;
-      
-                   
-            
             map = mapLoader.reloadMap();
-            
             return;
         }
         
@@ -401,7 +348,6 @@ public class GameEngine extends GameCore
                 badguy.setState(Creature.STATE_DYING);
                 player.setY(badguy.getY() - player.getHeight());
                 player.jump(true);
-                killed = killed + 1;
             } else {
                 // player dies!
                 player.setState(Creature.STATE_DYING);
@@ -413,8 +359,6 @@ public class GameEngine extends GameCore
                         ex.printStackTrace();
                     }
                     stop();
-                    state=STATE.MENU;
-                  
                 }
             }
         }
