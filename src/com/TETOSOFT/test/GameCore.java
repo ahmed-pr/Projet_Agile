@@ -27,6 +27,20 @@ public abstract class GameCore {
 
     private boolean isRunning;
     protected ScreenManager screen;
+    
+    
+    
+    
+    
+    
+    
+    
+    //*************
+    private boolean isPauseDone = false;
+    
+    public void setPauseDone(boolean isPauseDone) {
+    	this.isPauseDone = isPauseDone;
+    }
 
 
     /**
@@ -108,8 +122,26 @@ public abstract class GameCore {
         long currTime = startTime;
 
         while (isRunning) {
-            long elapsedTime =
-                System.currentTimeMillis() - currTime;
+        	
+        	
+        	
+        	//***********************
+        	if (isPauseDone) {
+        		currTime = System.currentTimeMillis();
+        		isPauseDone = false;
+        	}
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+            long elapsedTime = System.currentTimeMillis() - currTime;
             currTime += elapsedTime;
 
             // update
