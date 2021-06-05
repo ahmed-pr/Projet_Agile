@@ -49,7 +49,7 @@ double height = screenSize.getHeight();
         else   if(GameEngine.state==STATE.GAMEOVER){
         if(mx>=width/2-70 && mx<=width/2-70+150 )
         {
-            if(my>=200 && my<=250)
+            if(my>=220 && my<=270)
             {GameEngine.state=GameEngine.STATE.GAME;
            }
             

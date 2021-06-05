@@ -36,6 +36,10 @@ public class GameEngine extends GameCore
     private GameAction exit;
     private int collectedStars=0;
     private int numLives=6;
+
+    private GameAction pause;
+    public  static  int killed = 0;
+
     private MenuStart menu;
 //    public   int  WIDTH=screen.getWidth();
     public  static enum  STATE{
