@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import com.TETOSOFT.graphics.*;
 import com.TETOSOFT.input.*;
+import com.TETOSOFT.music.AePlayWave;
 import com.TETOSOFT.test.GameCore;
 import com.TETOSOFT.tilegame.sprites.*;
 
@@ -17,6 +18,8 @@ public class GameEngine extends GameCore
     
     public static void main(String[] args) 
     {
+    	Thread playWave=new AePlayWave("C:\\Users\\Admin\\Downloads\\Super.wav");
+        playWave.start();
         new GameEngine().run();
     }
     
