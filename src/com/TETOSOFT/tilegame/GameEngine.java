@@ -250,8 +250,10 @@ public class GameEngine extends GameCore
         
         // player is dead! start map over
         if (player.getState() == Creature.STATE_DEAD) {
-   drawer.setBackground(mapLoader.loadImage("background.jpg"));            
-state=STATE.MENU;
+        initInput();
+        state=STATE.MENU;
+      
+                   
             
             map = mapLoader.reloadMap();
             
