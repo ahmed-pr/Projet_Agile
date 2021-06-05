@@ -40,8 +40,8 @@ public class GameEngine extends GameCore
     private GameAction pause;
     public  static  int killed = 0;
 
-    private GameAction pause;
-    private int killed = 0;
+    //private GameAction pause;
+   // private int killed = 0;
     private MenuStart menu;
 //    public   int  WIDTH=screen.getWidth();
     public  static enum  STATE{
