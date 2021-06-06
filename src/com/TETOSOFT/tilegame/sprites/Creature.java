@@ -19,7 +19,7 @@ public abstract class Creature extends Sprite {
     public static final int STATE_DYING = 1;
     public static final int STATE_DEAD = 2;
 
-    private Animation left;
+    Animation left;
     private Animation right;
     private Animation deadLeft;
     private Animation deadRight;

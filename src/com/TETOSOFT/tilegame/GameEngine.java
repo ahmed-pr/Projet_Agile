@@ -123,9 +123,6 @@ public class GameEngine extends GameCore
             }
             if (moveRight.isPressed()) {
                 velocityX+=player.getMaxSpeed();
-                Animation anim = new Animation();
-                Image image = loadImage("marioArretDroite.png");
-                anim.addFrame(image , 250);
             }
             if (jump.isPressed()) {
                 player.jump(false);

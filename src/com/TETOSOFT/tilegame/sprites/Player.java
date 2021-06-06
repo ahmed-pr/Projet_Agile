@@ -16,7 +16,11 @@ public class Player extends Creature
     {
         super(left, right, deadLeft, deadRight);
     }
-
+    
+    public void SetAnim(Animation left)
+    {
+        this.left = left;
+    }
 
     public void collideHorizontal() {
         setVelocityX(0);

@@ -276,8 +276,8 @@ public class MapLoader
         }
         images[0][0] = loadImage("marioArretGauche.png");
         images[1][0] = loadImage("marioArretDroite.png");
-        images[2][0] = loadImage("marioMarcheDroite.png");
-        images[3][0] = loadImage("marioMarcheGauche.png");
+        images[2][0] = loadImage("boom.png");
+        images[3][0] = loadImage("boom.png");
 
         // create creature animations
         Animation[] playerAnim = new Animation[4];
