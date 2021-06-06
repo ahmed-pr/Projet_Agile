@@ -11,6 +11,10 @@ public class Animation
     private long animTime;
     private long totalDuration;
 
+    public long getTotalDuration() {
+        return this.totalDuration;
+    }
+
 
     public Animation() 
     {
